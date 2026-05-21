@@ -1,0 +1,72 @@
+branding:
+  icon: "book-open"
+  color: "blue"
+
+name: "Markdown2Confluence"
+description: "Sync markdown docs to Confluence using mark"
+
+inputs:
+  username:
+    description: "The username used to authenticate with Confluence"
+    required: false
+  password:
+    description: "The token to be used to authenticate with Confluence"
+    required: true
+  docs-path:
+    description: "Folder containing markdown files"
+    required: false
+    default: "."
+  exclude-dir:
+    description: "Exclude the markdown files inside this path"
+    required: false
+  changed-only:
+    description: "Sync only changed markdown files"
+    required: false
+    default: "false"
+  dry-run:
+    description: "If true this will not push any changes, but to log the change it would have made"
+    required: false
+    default: "false"
+  confluence-url:
+    description: "The destination Confluence url"
+    required: true
+  space:
+    description: "Specific Confluence space to publish to"
+    required: false
+  parent:
+    description: "Specific Confluence parent to publish to"
+    required: false
+  drop-h1:
+    description: "Don't include the first H1 heading in Confluence output"
+    required: false
+    default: "false"
+  strip-linebreaks:
+    description: "Remove linebreaks inside of tags, to accommodate non-standard Confluence behavior"
+    default: "false"
+    required: false
+  title-from-h1:
+    description: "Extract page title from a leading H1 heading. If no H1 heading on a page exists, then title must be set in the page metadata"
+    required: false
+    default: "false"
+  title-from-filename:
+    description: "Use the filename (without extension) as the Confluence page title if no explicit page title is set in the metadata"
+    required: false
+    default: "false"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  env:
+    MARK_DRY_RUN: ${{ inputs.dry-run }}
+    MARK_USERNAME: ${{ inputs.username }}
+    MARK_PASSWORD: ${{ inputs.password }}
+    MARK_DOCS_PATH: ${{ inputs.docs-path }}
+    MARK_EXCLUDE_DIRS: ${{ inputs.exclude-dir }}
+    MARK_CHANGED_ONLY: ${{ inputs.changed-only }}
+    MARK_URL: ${{ inputs.confluence-url }}
+    MARK_SPACE: ${{ inputs.space }}
+    MARK_PARENT: ${{ inputs.parent }}
+    MARK_DROP_H1: ${{ inputs.drop-h1 }}
+    MARK_STRIP_LINEBREAKS: ${{ inputs.strip-linebreaks }}
+    MARK_TITLE_FROM_H1: ${{ inputs.title-from-h1 }}
+    MARK_TITLE_FROM_FILENAME: ${{ inputs.title-from-filename }}
