@@ -2,7 +2,8 @@ FROM golang:1.26-alpine AS builder
 
 WORKDIR /go/src/
 
-RUN git config --global advice.detachedHead false && \
+RUN apk add --no-cache git curl && \
+    git config --global advice.detachedHead false && \
     TAG=$(curl --silent "https://api.github.com/repos/kovetskiy/mark/releases/latest" \
     | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/') && \
     git clone --depth 1 --branch ${TAG} https://github.com/kovetskiy/mark.git
@@ -27,10 +28,10 @@ FROM alpine:latest
 COPY --chmod=0755 --from=builder /go/mark /usr/bin/mark
 COPY --chmod=0755 entrypoint.sh /app/entrypoint.sh
 
-RUN apk update && apk add -y --no-cache ca-certificates bash && \
+RUN apk update && apk add --no-cache ca-certificates bash && \
     addgroup -S noroot && adduser -S -G noroot noroot
 
-WORKDIR workspace
+WORKDIR /workspace
 USER noroot
 
 ENTRYPOINT [ "/app/entrypoint.sh" ]
