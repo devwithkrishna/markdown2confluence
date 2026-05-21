@@ -92,9 +92,9 @@ sync_file() {
     local file_title=""
     
     if [[ -f "${file}" ]]; then
-        file_space=$(grep -oP '<!-- Space: \K[^-]*(?= -->)' "${file}" | head -1 || true)
-        file_parent=$(grep -oP '<!-- Parent: \K[^-]*(?= -->)' "${file}" | head -1 || true)
-        file_title=$(grep -oP '<!-- Title: \K[^-]*(?= -->)' "${file}" | head -1 || true)
+        file_space=$(sed -n 's/.*<!-- Space: \([^-]*\) -->.*/\1/p' "${file}" | head -1 || true)
+        file_parent=$(sed -n 's/.*<!-- Parent: \([^-]*\) -->.*/\1/p' "${file}" | head -1 || true)
+        file_title=$(sed -n 's/.*<!-- Title: \([^-]*\) -->.*/\1/p' "${file}" | head -1 || true)
     fi
 
     local mark_args=(
