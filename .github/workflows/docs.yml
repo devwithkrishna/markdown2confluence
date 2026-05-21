@@ -23,7 +23,7 @@ jobs:
       with:
         token: ${{ steps.token-generation.outputs.token }}
 
-    - uses: devwithkrishna/markdown2confluence@latest
+    - uses: devwithkrishna/markdown2confluence@1.0.0
       with:
         username: ${{ secrets.CONFLUENCE_USER }}
         password: ${{ secrets.CONFLUENCE_TOKEN }}
