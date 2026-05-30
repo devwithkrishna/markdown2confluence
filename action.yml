@@ -52,6 +52,10 @@ inputs:
     description: "Use the filename (without extension) as the Confluence page title if no explicit page title is set in the metadata"
     required: false
     default: "false"
+  log-level:
+    description: "set the log level. Possible values: TRACE, DEBUG, INFO, WARNING, ERROR, FATAL. (default: 'info')"
+    required: false
+    default: "info"
 
 runs:
   using: "docker"
@@ -70,3 +74,4 @@ runs:
     MARK_STRIP_LINEBREAKS: ${{ inputs.strip-linebreaks }}
     MARK_TITLE_FROM_H1: ${{ inputs.title-from-h1 }}
     MARK_TITLE_FROM_FILENAME: ${{ inputs.title-from-filename }}
+    MARK_LOG_LEVEL: ${{ inputs.log-level }}
