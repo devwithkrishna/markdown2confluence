@@ -29,14 +29,15 @@ Sync markdown docs to Confluence using mark
 | `docs-path` | <p>Folder containing markdown files</p> | `false` | `.` |
 | `exclude-dir` | <p>Exclude the markdown files inside this path</p> | `false` | `""` |
 | `changed-only` | <p>Sync only changed markdown files</p> | `false` | `false` |
-| `dry-run` | <p>If true this will not push any chnages, but to log the change it would have made</p> | `false` | `false` |
+| `dry-run` | <p>If true this will not push any changes, but to log the change it would have made</p> | `false` | `false` |
 | `confluence-url` | <p>The destination Confluence url</p> | `true` | `""` |
-| `space` | <p>Specific Confluence space to pushlish to</p> | `false` | `""` |
-| `parent` | <p>Specific Confluence parent to pushlish to</p> | `false` | `""` |
+| `space` | <p>Specific Confluence space to publish to</p> | `false` | `""` |
+| `parent` | <p>Specific Confluence parent to publish to</p> | `false` | `""` |
 | `drop-h1` | <p>Don't include the first H1 heading in Confluence output</p> | `false` | `false` |
 | `strip-linebreaks` | <p>Remove linebreaks inside of tags, to accommodate non-standard Confluence behavior</p> | `false` | `false` |
 | `title-from-h1` | <p>Extract page title from a leading H1 heading. If no H1 heading on a page exists, then title must be set in the page metadata</p> | `false` | `false` |
 | `title-from-filename` | <p>Use the filename (without extension) as the Confluence page title if no explicit page title is set in the metadata</p> | `false` | `false` |
+| `log-level` | <p>set the log level. Possible values: TRACE, DEBUG, INFO, WARNING, ERROR, FATAL. (default: 'info')</p> | `false` | `info` |
 
 
 ## Runs
@@ -79,7 +80,7 @@ This action is a `docker` action.
     # Default: false
 
     dry-run:
-    # If true this will not push any chnages, but to log the change it would have made
+    # If true this will not push any changes, but to log the change it would have made
     #
     # Required: false
     # Default: false
@@ -91,13 +92,13 @@ This action is a `docker` action.
     # Default: ""
 
     space:
-    # Specific Confluence space to pushlish to
+    # Specific Confluence space to publish to
     #
     # Required: false
     # Default: ""
 
     parent:
-    # Specific Confluence parent to pushlish to
+    # Specific Confluence parent to publish to
     #
     # Required: false
     # Default: ""
@@ -125,6 +126,12 @@ This action is a `docker` action.
     #
     # Required: false
     # Default: false
+
+    log-level:
+    # set the log level. Possible values: TRACE, DEBUG, INFO, WARNING, ERROR, FATAL. (default: 'info')
+    #
+    # Required: false
+    # Default: info
 ```
 <!-- action-docs-all source="action.yml" project="devwithkrishna/markdown2confluence" version="latest" -->
 

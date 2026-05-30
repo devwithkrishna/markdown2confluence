@@ -20,6 +20,8 @@ STRIP_LINEBREAKS="${MARK_STRIP_LINEBREAKS:-false}"
 TITLE_FROM_H1="${MARK_TITLE_FROM_H1:-false}"
 TITLE_FROM_FILENAME="${MARK_TITLE_FROM_FILENAME:-false}"
 
+LOG_LEVEL="${MARK_LOG_LEVEL:-info}"
+
 
 
 echo "========================================="
@@ -34,6 +36,7 @@ echo "DROP_H1             : ${DROP_H1}"
 echo "STRIP_LINEBREAKS    : ${STRIP_LINEBREAKS}"
 echo "TITLE_FROM_H1       : ${TITLE_FROM_H1}"
 echo "TITLE_FROM_FILENAME : ${TITLE_FROM_FILENAME}"
+echo "LOG_LEVEL          : ${LOG_LEVEL}"
 echo "========================================="
 
 # Validate mark binary
@@ -101,6 +104,7 @@ sync_file() {
         -p "${MARK_PASSWORD}"
         -b "${CONFLUENCE_URL}"
         -u "${MARK_USERNAME}"
+        --log-level "${LOG_LEVEL^^}"
     )
 
     # Use environment variable if set, otherwise fall back to file metadata
