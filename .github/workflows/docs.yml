@@ -12,7 +12,7 @@ jobs:
     steps:
 
     - name: Token generator
-      uses: githubofkrishnadhas/github-access-using-githubapp@v2
+      uses: githubofkrishnadhas/github-access-using-githubapp@v3
       id: token-generation
       with:
         github_app_id: ${{ secrets.TOKEN_GENERATOR_APPID }}
