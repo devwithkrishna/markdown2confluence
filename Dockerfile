@@ -27,10 +27,9 @@ FROM alpine:latest
 
 COPY --chmod=0755 --from=builder /go/mark /usr/bin/mark
 COPY --chmod=0755 entrypoint.sh /app/entrypoint.sh
+COPY --chmod=0755 google-chrome /usr/bin/google-chrome
 
 RUN apk add --no-cache ca-certificates bash git chromium && \
-    CHROMIUM_BIN="$(command -v chromium-browser || command -v chromium)" && \
-    ln -s "${CHROMIUM_BIN}" /usr/bin/google-chrome && \
     addgroup -S noroot && adduser -S -G noroot noroot
 
 WORKDIR /workspace
