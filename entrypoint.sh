@@ -108,12 +108,12 @@ sync_file() {
     [[ "${TITLE_FROM_H1}" == "true" ]] && mark_args+=(--title-from-h1)
     [[ "${TITLE_FROM_FILENAME}" == "true" ]] && mark_args+=(--title-from-filename)
 
-    echo "Running: mark ${file}"
+    echo "Running: mark publish ${file}"
     
     local retries=3
     local attempt=1
 
-    until mark "${mark_args[@]}" -f "${file}"; do
+    until mark publish "${mark_args[@]}" -f "${file}"; do
         if [[ "${attempt}" -ge "${retries}" ]]; then
             echo "ERROR: Failed syncing ${file} after ${retries} attempts"
             echo "::endgroup::"

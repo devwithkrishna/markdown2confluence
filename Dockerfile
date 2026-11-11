@@ -4,8 +4,7 @@ WORKDIR /go/src/
 
 RUN apk add --no-cache git curl && \
     git config --global advice.detachedHead false && \
-    TAG=$(curl --silent "https://api.github.com/repos/kovetskiy/mark/releases/latest" \
-    | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/') && \
+    TAG=v17.1.0 && \
     git clone --depth 1 --branch ${TAG} https://github.com/kovetskiy/mark.git
 
 WORKDIR /go/src/mark
