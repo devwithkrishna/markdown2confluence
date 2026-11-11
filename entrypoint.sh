@@ -89,17 +89,6 @@ sync_file() {
 
     echo "::group::Syncing ${file}"
 
-    # Parse metadata from HTML comments in the markdown file
-    local file_space=""
-    local file_parent=""
-    local file_title=""
-    
-    if [[ -f "${file}" ]]; then
-        file_space=$(sed -n 's/.*<!-- Space: \([^-]*\) -->.*/\1/p' "${file}" | head -1 || true)
-        file_parent=$(sed -n 's/.*<!-- Parent: \([^-]*\) -->.*/\1/p' "${file}" | head -1 || true)
-        file_title=$(sed -n 's/.*<!-- Title: \([^-]*\) -->.*/\1/p' "${file}" | head -1 || true)
-    fi
-
     local mark_args=(
         -p "${MARK_PASSWORD}"
         -b "${CONFLUENCE_URL}"
@@ -107,12 +96,10 @@ sync_file() {
         --log-level "${LOG_LEVEL^^}"
     )
 
-    # Use environment variable if set, otherwise fall back to file metadata
-    local space_to_use="${SPACE:-${file_space}}"
-    local parent_to_use="${PARENT:-${file_parent}}"
-
-    [[ -n "${space_to_use}" ]] && mark_args+=(--space "${space_to_use}")
-    [[ -n "${parent_to_use}" ]] && mark_args+=(--parents "${parent_to_use}")
+    # mark reads Space and Parent metadata directly. CLI parents are prepended
+    # to document parents, so only pass explicitly configured environment values.
+    [[ -n "${SPACE}" ]] && mark_args+=(--space "${SPACE}")
+    [[ -n "${PARENT}" ]] && mark_args+=(--parents "${PARENT}")
     [[ "${DRY_RUN}" == "true" ]] && mark_args+=(--dry-run)
 
     # Formatting options
